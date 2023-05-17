@@ -1,4 +1,4 @@
-import { gatewaysApiSlice } from './features/api/gatewaysApiSlice';
+import { gatewaysApiSlice } from './features/api/apiSlice';
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from '@reduxjs/toolkit/query'
 

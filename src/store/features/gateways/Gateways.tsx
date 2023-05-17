@@ -10,10 +10,10 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
-import AddOrEeditGatewayDialog from "./AddOrEeditGatewayDialog";
+import AddOrEeditGatewayDialog from "./AddOrEditGatewayDialog";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { useDeleteGatewayMutation, useGetAllGatewaysQuery } from "../api/gatewaysApiSlice";
+import { useDeleteGatewayMutation, useGetAllGatewaysQuery } from "../api/apiSlice";
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
 const initialGatewayValue = {
