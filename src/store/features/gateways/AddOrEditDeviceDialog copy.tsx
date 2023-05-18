@@ -66,10 +66,6 @@ function AddOrEditDeviceDialog({ open, device, isEditing, setIsEditing, onClose 
         setStatus(event.target.value);
     };
 
-
-    const handleChange = (event: SelectChangeEvent) => {
-        setStatus(event.target.value as string);
-    };
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
@@ -138,7 +134,7 @@ function AddOrEditDeviceDialog({ open, device, isEditing, setIsEditing, onClose 
                                     id="status"
                                     value={status}
                                     label="Status"
-                                    onChange={handleChange}
+                                    onChange={handleStatusChange}
                                 >
                                     <MenuItem value="online">Online</MenuItem>
                                     <MenuItem value="offline">Offline</MenuItem>
