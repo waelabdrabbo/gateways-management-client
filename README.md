@@ -14,6 +14,7 @@ This sample project manages gateways - The REST service (JSON/HTTP) stores infor
 The project provides a REST service for performing CRUD operations on gateways and their devices. The service enforces validation rules for gateway fields and limits the number of peripheral devices to 10 per gateway.
 
 ## Installation
+Run `npm install` to install all the dependencies
 
 Run `npm run dev` for a dev server. Navigate to `http://localhost:5173/`. The app will automatically reload if you change any of the source files.
 
