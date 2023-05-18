@@ -16,6 +16,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useDeleteGatewayMutation, useGetAllGatewaysQuery } from "../api/apiSlice";
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
+import Chip from '@mui/material/Chip';
+
 const initialGatewayValue = {
     name: '',
     serialNumber: '',
@@ -24,7 +26,7 @@ const initialGatewayValue = {
 
 const GatewaysRedux = () => {
 
-    const { data: allGatewaysData, isLoading, isSuccess, isError, error } = useGetAllGatewaysQuery();
+    const { data: allGatewaysData, isLoading, isSuccess } = useGetAllGatewaysQuery();
     const [deleteGateway] = useDeleteGatewayMutation();
     const [open, setOpen] = useState(false);
     // const [addOrEdit, setAddOrEdit] = useState(false);
@@ -63,9 +65,12 @@ const GatewaysRedux = () => {
                 <TableCell align="right">{gateway.serialNumber}</TableCell>
                 <TableCell align="right">{gateway.ipAddress}</TableCell>
                 <TableCell align="right">
-                    {gateway.devices.map((device: any) => (
-                        <span key={device.uid}>{device.uid} </span>
-                    ))}
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: "flex-end", gap: 0.5 }}>
+
+                        {gateway.devices.map((device: any) => (
+                            <Chip key={device.uid} label={device.uid} />
+                        ))}
+                    </Box>
                 </TableCell>
                 <TableCell>
                     <Stack direction="row" justifyContent="flex-end">
@@ -77,7 +82,7 @@ const GatewaysRedux = () => {
                         </IconButton>
                     </Stack>
                 </TableCell>
-            </TableRow>
+            </TableRow >
         )
         )
     }

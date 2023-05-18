@@ -36,7 +36,7 @@ function AddOrEditDeviceDialog({ open, device, isEditing, setIsEditing, onClose 
     const [openStatusMessage, setOpenStatusMessage] = useState(false)
     const [updateDevice] = useUpdateDeviceMutation();
     const [addDevice] = useAddDeviceMutation();
-    const updatedDevice = { _id: device._id, uid, vendor, status, gateway }
+    const updatedDevice = { _id: device._id, uid, vendor, status }
     // Validation
     const [uidValidationMessage, setUidValidationMessage] = useState('')
     const [uidValidation, setUidValidation] = useState(false)
@@ -46,15 +46,17 @@ function AddOrEditDeviceDialog({ open, device, isEditing, setIsEditing, onClose 
     const [statusValidation, setStatusValidation] = useState(false)
 
     const resetForm = () => {
-        setUid(device.uid);
-        setVendor(device.vendor)
-        setStatus(device.status)
-        setStatusValidation(false)
-        setStatusValidationMessage('')
-        setUidValidation(false)
-        setUidValidationMessage('')
-        setVendorValidation(false)
-        setVendorValidationMessage('')
+        setTimeout(() => {
+            setUid(device.uid);
+            setVendor(device.vendor)
+            setStatus(device.status)
+            setStatusValidation(false)
+            setStatusValidationMessage('')
+            setUidValidation(false)
+            setUidValidationMessage('')
+            setVendorValidation(false)
+            setVendorValidationMessage('')
+        }, 300);
     }
     const handleUidChange = (event: any) => {
         setUid(event.target.value);
@@ -69,7 +71,6 @@ function AddOrEditDeviceDialog({ open, device, isEditing, setIsEditing, onClose 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
-            resetForm();
             if (isEditing) {
                 await updateDevice(updatedDevice).unwrap();
                 setStatusMessage('Device updated successfully');
@@ -82,18 +83,19 @@ function AddOrEditDeviceDialog({ open, device, isEditing, setIsEditing, onClose 
             onClose();
             resetForm();
         } catch (error: any) {
-            resetForm();
             if (error.status === 400 || error.status) {
                 const errors = error.data.error.errors;
-                console.log(errors)
-                if (errors.uid) {
-                    setUidValidation(true);
-                    setUidValidationMessage(errors.uid.message);
-                }
-                if (errors.vendor) {
-                    setVendorValidation(true);
-                    setVendorValidationMessage(errors.vendor.message);
-                }
+                const handleValidation = (field: string, validationState: (arg0: any) => void, validationMessage: (arg0: any) => void) => {
+                    if (errors[field]) {
+                        validationState(true);
+                        validationMessage(errors[field].message);
+                    } else {
+                        validationState(false);
+                        validationMessage('');
+                    }
+                };
+                handleValidation('uid', setUidValidation, setUidValidationMessage);
+                handleValidation('vendor', setVendorValidation, setVendorValidationMessage);
             } else {
                 setStatusMessage('An unexpected error occurred');
             }
@@ -102,8 +104,8 @@ function AddOrEditDeviceDialog({ open, device, isEditing, setIsEditing, onClose 
 
     const handleClose = () => {
         onClose()
-        resetForm()
         setIsEditing(false)
+        resetForm()
     };
     const handelStatusMessageOnClose = () => {
         setOpenStatusMessage(false)

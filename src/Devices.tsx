@@ -1,26 +1,17 @@
 
 import { useState } from "react"
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import Box from "@mui/material/Box";
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import { Table, TableBody, Box, TableCell, TableContainer, TableHead, TableRow, Paper, Stack, Button } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
-// import AddOrEeditGatewayDialog  ;
-import AddOrEditDeviceDialog from "./store/features/gateways/AddOrEditDeviceDialog copy";
+import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import AddOrEditDeviceDialog from "./store/features/gateways/AddOrEditDeviceDialog copy";
 import { useGetAllDevicesQuery, useDeleteDeviceMutation } from "./store/features/api/apiSlice";
-import AddIcon from '@mui/icons-material/Add';
-import Button from '@mui/material/Button';
-const initialGatewayValue = {
-    name: '',
-    serialNumber: '',
-    ipAddress: ''
+
+const initialDeviceValue = {
+    uid: '',
+    vendor: '',
+    status: 'online'
 }
 
 const Devices = () => {
@@ -30,7 +21,6 @@ const Devices = () => {
     const [open, setOpen] = useState(false);
     const [isEditing, setIsEditing] = useState(false)
     const [selectedDevice, setSelectedDevice] = useState({});
-
     const handleEditClick = (device: any) => {
         setSelectedDevice(device);
         setOpen(true);
@@ -38,7 +28,7 @@ const Devices = () => {
     };
     const handleAddClick = () => {
         setOpen(true);
-        setSelectedDevice(initialGatewayValue)
+        setSelectedDevice(initialDeviceValue)
         setIsEditing(false);
     };
     const handleClose = () => {
@@ -53,7 +43,6 @@ const Devices = () => {
         </TableRow>
     }
     else if (isSuccess) {
-        console.log(allDevicessData)
         content = allDevicessData.map((device: any) => (
             < TableRow
                 key={device.uid} >

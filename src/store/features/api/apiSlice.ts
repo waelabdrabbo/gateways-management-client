@@ -19,7 +19,7 @@ export const gatewaysApiSlice = createApi({
                 method: "POST",
                 body: gateway
             }),
-            invalidatesTags: ['Gateways']
+            invalidatesTags: ['Gateways', 'Devices']
         }),
         updateGateway: builder.mutation({
             query: (gateway) => ({
@@ -27,7 +27,7 @@ export const gatewaysApiSlice = createApi({
                 method: "PATCH",
                 body: gateway
             }),
-            invalidatesTags: ['Gateways']
+            invalidatesTags: ['Gateways', 'Devices']
         }),
         deleteGateway: builder.mutation({
             query: ({ id }) => ({
@@ -35,7 +35,7 @@ export const gatewaysApiSlice = createApi({
                 method: "DELETE",
                 body: id
             }),
-            invalidatesTags: ['Gateways']
+            invalidatesTags: ['Gateways', 'Devices']
         }),
         getAllDevices: builder.query<any, void>({
             query: () => "devices",
@@ -51,7 +51,7 @@ export const gatewaysApiSlice = createApi({
         }),
         deleteDevice: builder.mutation({
             query: ({ id }) => ({
-                url: `device/${id}`,
+                url: `devices/${id}`,
                 method: "DELETE",
                 body: id
             }),
