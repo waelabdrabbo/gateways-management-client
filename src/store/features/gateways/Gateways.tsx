@@ -10,7 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
-import AddOrEeditGatewayDialog from "./AddOrEditGatewayDialog";
+import AddOrEeditGatewayDialog from "../devices/AddOrEditGatewayDialog";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useDeleteGatewayMutation, useGetAllGatewaysQuery } from "../api/apiSlice";
@@ -24,14 +24,14 @@ const initialGatewayValue = {
     ipAddress: ''
 }
 
-const GatewaysRedux = () => {
+const Gateways = () => {
 
     const { data: allGatewaysData, isLoading, isSuccess } = useGetAllGatewaysQuery();
     const [deleteGateway] = useDeleteGatewayMutation();
     const [open, setOpen] = useState(false);
     // const [addOrEdit, setAddOrEdit] = useState(false);
     const [isEditing, setIsEditing] = useState(false)
-    const [selectedGateway, setSelectedGateway] = useState({});
+    const [selectedGateway, setSelectedGateway] = useState([]);
 
     const handleEditClick = (gateway: any) => {
         setSelectedGateway(gateway);
@@ -121,4 +121,4 @@ const GatewaysRedux = () => {
         </>
     )
 }
-export default GatewaysRedux
+export default Gateways

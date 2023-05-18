@@ -5,8 +5,8 @@ import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import AddOrEditDeviceDialog from "./store/features/gateways/AddOrEditDeviceDialog copy";
-import { useGetAllDevicesQuery, useDeleteDeviceMutation } from "./store/features/api/apiSlice";
+import AddOrEditDeviceDialog from "../gateways/AddOrEditDeviceDialog copy";
+import { useGetAllDevicesQuery, useDeleteDeviceMutation } from "../api/apiSlice";
 
 const initialDeviceValue = {
     uid: '',
@@ -15,8 +15,7 @@ const initialDeviceValue = {
 }
 
 const Devices = () => {
-
-    const { data: allDevicessData, isLoading, isSuccess, isError, error } = useGetAllDevicesQuery();
+    const { data: allDevicessData, isLoading, isSuccess } = useGetAllDevicesQuery();
     const [deleteDevice] = useDeleteDeviceMutation();
     const [open, setOpen] = useState(false);
     const [isEditing, setIsEditing] = useState(false)
@@ -26,11 +25,13 @@ const Devices = () => {
         setOpen(true);
         setIsEditing(true)
     };
+    // Open Dialog on add Device
     const handleAddClick = () => {
         setOpen(true);
         setSelectedDevice(initialDeviceValue)
         setIsEditing(false);
     };
+    // Close Dialog
     const handleClose = () => {
         setOpen(false);
     };

@@ -45,6 +45,7 @@ function AddOrEditDeviceDialog({ open, device, isEditing, setIsEditing, onClose 
     const [statusValidationMessage, setStatusValidationMessage] = useState('')
     const [statusValidation, setStatusValidation] = useState(false)
 
+    // Reset Form Values
     const resetForm = () => {
         setTimeout(() => {
             setUid(device.uid);
@@ -58,6 +59,8 @@ function AddOrEditDeviceDialog({ open, device, isEditing, setIsEditing, onClose 
             setVendorValidationMessage('')
         }, 300);
     }
+
+    // Handle Form Changes
     const handleUidChange = (event: any) => {
         setUid(event.target.value);
     };
@@ -68,6 +71,7 @@ function AddOrEditDeviceDialog({ open, device, isEditing, setIsEditing, onClose 
         setStatus(event.target.value);
     };
 
+    // Sumbit Form Logic
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
@@ -101,12 +105,15 @@ function AddOrEditDeviceDialog({ open, device, isEditing, setIsEditing, onClose 
             }
         }
     };
-
+    
+    // Close Dialog
     const handleClose = () => {
         onClose()
         setIsEditing(false)
         resetForm()
     };
+
+    // Close Toaster
     const handelStatusMessageOnClose = () => {
         setOpenStatusMessage(false)
     }

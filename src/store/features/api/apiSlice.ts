@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { API_URL } from '../../../config'
 
-export const gatewaysApiSlice = createApi({
-    reducerPath: 'gatewaysApi',
+export const apiSlice = createApi({
+    reducerPath: 'api',
     baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
     tagTypes: ['Gateways', 'Devices'],
     endpoints: (builder) => ({
@@ -67,4 +67,4 @@ export const gatewaysApiSlice = createApi({
         }),
     })
 })
-export const { useGetAllGatewaysQuery, useGetGatewayQuery, useAddGatewayMutation, useUpdateGatewayMutation, useDeleteGatewayMutation, useGetAllDevicesQuery, useDeleteDeviceMutation, useUpdateDeviceMutation, useAddDeviceMutation } = gatewaysApiSlice
+export const { useGetAllGatewaysQuery, useGetGatewayQuery, useAddGatewayMutation, useUpdateGatewayMutation, useDeleteGatewayMutation, useGetAllDevicesQuery, useDeleteDeviceMutation, useUpdateDeviceMutation, useAddDeviceMutation } = apiSlice

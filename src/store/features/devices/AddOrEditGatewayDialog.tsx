@@ -44,14 +44,14 @@ function AddOrEeditGatewayDialog({ open, gateway, isEditing, setIsEditing, onClo
     const [name, setName] = useState(gateway?.name);
     const [serialNumber, setSerialNumber] = useState(gateway?.serialNumber);
     const [ipAddress, setIpAddress] = useState(gateway?.ipAddress);
-    const [devices, setDevices] = useState(gateway.devices);
+    const [devices, setDevices] = useState(gateway?.devices);
     const [statusMessage, setStatusMessage] = useState('')
     const [openStatusMessage, setOpenStatusMessage] = useState(false)
     const [updateGateway] = useUpdateGatewayMutation();
     const [addGateway] = useAddGatewayMutation();
     const [selectedDevices, setSelectedDevices] = useState<undefined | string[]>(undefined)
     const updatedGateway = { _id: gateway._id, name, serialNumber, ipAddress, devices: selectedDevices }
-    // Validation
+    // Validation States
     const [nameValidationMessage, setNameValidationMessage] = useState('')
     const [nameValidation, setNameValidation] = useState(false)
     const [iPAddressValidationMessage, setiPAddressValidationMessage] = useState('')
@@ -61,6 +61,7 @@ function AddOrEeditGatewayDialog({ open, gateway, isEditing, setIsEditing, onClo
     const [devicesValidationMessage, setDevicesValidationMessage] = useState('')
     const [devicesValidation, setDevicesValidation] = useState(false)
 
+    // Reset Form Values
     const resetForm = () => {
         setName(gateway.name);
         setSerialNumber(gateway.serialNumber)
@@ -71,8 +72,10 @@ function AddOrEeditGatewayDialog({ open, gateway, isEditing, setIsEditing, onClo
         setNameValidationMessage('')
         setIpAddressValidation(false)
         setiPAddressValidationMessage('')
-        setSelectedDevices([])
+        setSelectedDevices(selectedDevices)
     }
+
+    // Handle Form Changes
     const handleNameChange = (event: any) => {
         setName(event.target.value);
     };
@@ -83,6 +86,7 @@ function AddOrEeditGatewayDialog({ open, gateway, isEditing, setIsEditing, onClo
         setIpAddress(event.target.value);
     };
 
+    // Compare Array Function used in devices drop down
     const compareArrays = (array1: any[], array2: any[]): any[] => {
         if (!array1 || !array2) {
             return [];
@@ -98,7 +102,8 @@ function AddOrEeditGatewayDialog({ open, gateway, isEditing, setIsEditing, onClo
 
         return selectedItems;
     }
-
+    
+    // Sumbit Form Logic
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
@@ -134,14 +139,17 @@ function AddOrEeditGatewayDialog({ open, gateway, isEditing, setIsEditing, onClo
             }
         };
     }
+    // Close Dialog
     const handleClose = () => {
         onClose()
         resetForm()
         setIsEditing(false)
     };
+    // Close Toaster
     const handelStatusMessageOnClose = () => {
         setOpenStatusMessage(false)
     }
+    
     useEffect(() => {
         if (gateway != null) {
             setName(gateway.name || "");
